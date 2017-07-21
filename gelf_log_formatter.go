@@ -6,7 +6,7 @@ package formatter
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"math"
 	"os"
 )
