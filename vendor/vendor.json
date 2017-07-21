@@ -1,0 +1,11 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"path": "sirupsen/logrus",
+			"revision": ""
+		}
+	],
+	"rootPath": "github.com/seatgeek/logrus-gelf-formatter"
+}
