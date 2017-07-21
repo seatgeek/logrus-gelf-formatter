@@ -21,7 +21,7 @@ package main
 
 import (
 	"github.com/sirupsen/logrus"
-	gelf "github.com/seatgeek/logrus-gelf-formatter
+	gelf "github.com/seatgeek/logrus-gelf-formatter"
 )
 
 var log = logrus.New()
