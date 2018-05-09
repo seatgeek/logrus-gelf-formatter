@@ -42,5 +42,9 @@ func main() {
 		"prefix":      "sensor",
 		"temperature": -4,
 	}).Info("Temperature changes")
+
+	log.WithFields(logrus.Fields{
+		"_timestamp": 1546094013.0234,
+	}).Info("Timestamp override")
 }
 ```
