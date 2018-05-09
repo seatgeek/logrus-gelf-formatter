@@ -23,9 +23,15 @@ func (f *GelfFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	data := make(fields, len(entry.Data)+6)
 	blacklist := []string{"_id", "id", "timestamp", "version", "level"}
 
+	var timestamp float64
 	for k, v := range entry.Data {
-
 		if contains(k, blacklist) {
+			continue
+		}
+
+		// Allow overriding timestamp
+		if k == "_timestamp" {
+			timestamp = v.(float64)
 			continue
 		}
 
@@ -40,7 +46,11 @@ func (f *GelfFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 
 	data["version"] = "1.1"
 	data["short_message"] = entry.Message
-	data["timestamp"] = round((float64(entry.Time.UnixNano())/float64(1000000))/float64(1000), 4)
+	if timestamp != 0 {
+		data["timestamp"] = timestamp
+	} else {
+		data["timestamp"] = round((float64(entry.Time.UnixNano())/float64(1000000))/float64(1000), 4)
+	}
 	data["level"] = entry.Level
 	data["level_name"] = entry.Level.String()
 	data["_pid"] = os.Getpid()
