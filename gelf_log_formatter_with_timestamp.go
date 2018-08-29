@@ -6,7 +6,6 @@ package formatter
 import (
 	"encoding/json"
 	"fmt"
-	"math"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -15,8 +14,6 @@ import (
 // Defines a log format type that wil output line separated JSON objects
 // in the GELF format.
 type GelfTimestampFormatter struct{}
-
-type fields map[string]interface{}
 
 // Format formats the log entry to GELF JSON
 func (f *GelfTimestampFormatter) Format(entry *logrus.Entry) ([]byte, error) {
@@ -61,18 +58,4 @@ func (f *GelfTimestampFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	}
 
 	return append(serialized, '\n'), nil
-}
-
-func contains(needle string, haystack []string) bool {
-	for _, a := range haystack {
-		if needle == a {
-			return true
-		}
-	}
-	return false
-}
-
-func round(val float64, places int) float64 {
-	shift := math.Pow(10, float64(places))
-	return math.Floor((val*shift)+.5) / shift
 }
