@@ -6,7 +6,6 @@ package formatter
 import (
 	"encoding/json"
 	"fmt"
-	"log/syslog"
 	"math"
 	"os"
 
@@ -21,14 +20,14 @@ type GelfFormatter struct {
 type fields map[string]interface{}
 
 var (
-	DefaultLevel = syslog.LOG_INFO
-	levelMap     = map[logrus.Level]syslog.Priority{
-		logrus.PanicLevel: syslog.LOG_EMERG,
-		logrus.FatalLevel: syslog.LOG_CRIT,
-		logrus.ErrorLevel: syslog.LOG_ERR,
-		logrus.WarnLevel:  syslog.LOG_WARNING,
-		logrus.InfoLevel:  syslog.LOG_INFO,
-		logrus.DebugLevel: syslog.LOG_DEBUG,
+	DefaultLevel = LOG_INFO
+	levelMap     = map[logrus.Level]Priority{
+		logrus.PanicLevel: LOG_EMERG,
+		logrus.FatalLevel: LOG_CRIT,
+		logrus.ErrorLevel: LOG_ERR,
+		logrus.WarnLevel:  LOG_WARNING,
+		logrus.InfoLevel:  LOG_INFO,
+		logrus.DebugLevel: LOG_DEBUG,
 	}
 )
 
@@ -81,7 +80,7 @@ func round(val float64, places int) float64 {
 	return math.Floor((val*shift)+.5) / shift
 }
 
-func toSyslogLevel(level logrus.Level) syslog.Priority {
+func toSyslogLevel(level logrus.Level) Priority {
 	syslog, ok := levelMap[level]
 	if ok {
 		return syslog
